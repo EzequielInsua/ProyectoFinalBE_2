@@ -1,11 +1,11 @@
 const express = require('express');
 const Container = require('./container.js');
 
-const PORT = 8080;
-const fileName = 'productos.txt';
+const PORT = 8089;
+const filename = 'productos.txt';
 const app = express();
 
-const contenedor = new Container(fileName);
+const contenedor = new Container(filename);
 
 
 app.get('/productos', async (req, res) => {
@@ -17,6 +17,7 @@ app.get('/productos', async (req, res) => {
     }
     
 })
+
 
 app.get('/productoRandom', async (req, res) => {
     try {
@@ -33,5 +34,7 @@ app.get('/productoRandom', async (req, res) => {
 const server = app.listen(PORT, ()=>{
     console.log(`Listening on port ${PORT}`);
 });
+
+
 
 server.on( "Error", error => console.log(`Error while listening on port ${PORT}: ${error}`) );
