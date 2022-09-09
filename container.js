@@ -6,7 +6,7 @@ module.exports = class Container {
         this.filename = String().concat('.\/', filename);
         this.readFile()
             .then(data => {
-                console.log(`Archivo cargado correctamente. Contenido: \n ${JSON.stringify(data)}`);
+                console.log(`Archivo cargado correctamente.`);
             })
             .catch(()=>{
                 this.saveFile([])
@@ -46,6 +46,26 @@ module.exports = class Container {
 
     async getAll(){
         return await this.readFile()
+    }
+
+    async editById(id,newObj){
+        let obj = { ...newObj };
+        let {title,price,thumbnail} = obj;
+        try {
+            const content = await this.readFile();
+            let productos = content.filter( obj => obj.id !== id);
+            let producto = content.find( obj => obj.id === id);
+
+            producto.title = title;
+            producto.price = price;
+            producto.thumbnail = thumbnail;
+            
+            productos.push(producto);
+
+            await this.saveFile(productos);
+        } catch{
+            console.error("Error al editar el elemento")
+        }
     }
 
     async deleteById(id){
@@ -95,7 +115,7 @@ module.exports = class Container {
 
 }
 
-const filename = 'productos.txt';
+const filename = './data/productos.txt';
 
 const regla = {
     title: 'Escuadra',
