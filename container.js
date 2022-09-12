@@ -114,29 +114,3 @@ module.exports = class Container {
     }
 
 }
-
-const filename = './data/productos.txt';
-
-const regla = {
-    title: 'Escuadra',
-    price: 123.45,
-    thumbnail: 'http://images/'
-};
-
-const calc = {
-    title: 'Calculadora',
-    price: 234.56,
-    thumbnail: 'http://images/'
-};
-
-const globo = {
-    title: 'Carpeta',
-    price: 356.67,
-    thumbnail: 'http://images/'
-}; 
-
-const lapicera = {
-    title: 'Lapicera',
-    price: 335.67,
-    thumbnail: 'http://images/'
-}; 

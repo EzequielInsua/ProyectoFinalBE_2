@@ -41,6 +41,7 @@ router.post('/productos', async (req, res) => {
     const data = await contenedor.save({title,price,thumbnail});
     return res.send({error:false, msg:"Producto Creado", data})
 });
+
 router.put('/productos/:id', async (req, res) => {
     const {id} = req.query;
     try {
@@ -49,7 +50,6 @@ router.put('/productos/:id', async (req, res) => {
     }catch(e) {
         return res.status(404).send({error:true, msg:"Producto no encontrado"})
     }
-
 });
 
 router.delete('/productos/:id', async (req, res) => {
