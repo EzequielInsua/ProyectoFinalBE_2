@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-module.exports = class Container {
+module.exports = class Container{
 
     constructor(filename){
         this.filename = String().concat('.\/', filename);
@@ -15,7 +15,6 @@ module.exports = class Container {
             })
     }
 
-
     async save(newObj){
         let obj = { ...newObj };
         try{
@@ -27,11 +26,11 @@ module.exports = class Container {
             }
             obj['id'] = id;
             data.push(obj);
+            console.log(obj);
             await this.saveFile(data);
         }catch(er){
-            console.error("Archivo no actualizado.")
+            console.error(`Archivo no actualizado: ${error.message}`)
         }
-
     }
 
     async getById(id){
@@ -55,13 +54,14 @@ module.exports = class Container {
             const content = await this.readFile();
             let productos = content.filter( obj => obj.id !== id);
             let producto = content.find( obj => obj.id === id);
-
             producto.title = title;
             producto.price = price;
             producto.thumbnail = thumbnail;
-            
             productos.push(producto);
-
+            productos.sort(function (a, b) {
+                if (a.id > b.id) { return 1 }
+                if (a.id < b.id) { return -1 }
+            });
             await this.saveFile(productos);
         } catch{
             console.error("Error al editar el elemento")
@@ -112,5 +112,4 @@ module.exports = class Container {
         });
         
     }
-
 }

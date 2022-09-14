@@ -4,12 +4,21 @@ const router = express.Router();
 
 const filename = './data/productos.txt';
 const contenedor = new container(filename);
+// // Views
+// router.use('views', 'views');
+// // Views engine
+// router.use('views engine', 'hbs');
+
+router.get('/', (req, res) => {
+    res.render("main", {layout: "index"});
+});
 
 router.get('/productos', async (req, res) => {
     try {
-        console.log('productos');
         const products = await contenedor.getAll();
-        res.send(products);
+        // res.send(products);
+        console.log(products)
+        res.render("main", { layout: "productos", products});
     } catch {
         res.send("Lo sentimos. Ha ocurrido un error. Intente nuevamente mas tarde.")
     }
@@ -38,8 +47,13 @@ router.get('/productos/:id', async (req, res) => {
 
 router.post('/productos', async (req, res) => {
     const {title,price,thumbnail} = req.body
-    const data = await contenedor.save({title,price,thumbnail});
-    return res.send({error:false, msg:"Producto Creado", data})
+    try{
+        await contenedor.save({title,price,thumbnail});
+        res.render("main", {layout: "index"});
+    }catch(e) {
+        return res.status(404).send({error:true, msg:"Lo sentimos. Ha ocurrido un error. Intente nuevamente mas tarde."})
+    }
+    
 });
 
 router.put('/productos/:id', async (req, res) => {
