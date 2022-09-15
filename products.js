@@ -4,26 +4,64 @@ const router = express.Router();
 
 const filename = './data/productos.txt';
 const contenedor = new container(filename);
-// // Views
-// router.use('views', 'views');
-// // Views engine
-// router.use('views engine', 'hbs');
+
+const ENGINE = 'hbs';
+// const ENGINE = 'pug';
+// const ENGINE = 'ejs';
 
 router.get('/', (req, res) => {
-    res.render("main", {layout: "index"});
+    if (ENGINE === 'hbs'){
+        // * HANDLEBARS
+        res.render("main", { layout: "index"});
+    }else if (ENGINE === 'pug'){
+        // * PUG
+        res.render("index");
+    }else{
+        // * EJS
+        res.render("ejs/index");
+    }
 });
 
 router.get('/productos', async (req, res) => {
     try {
         const products = await contenedor.getAll();
-        // res.send(products);
-        console.log(products)
-        res.render("main", { layout: "productos", products});
+        if (ENGINE === 'hbs'){
+            // * HANDLEBARS
+            res.render("main", { layout: "productos", products});
+        }else if (ENGINE === 'pug'){
+            // * PUG
+            res.render("productos", {products});
+        }else{
+            // * EJS
+            res.render("ejs/productos", {products});
+        }
     } catch {
         res.send("Lo sentimos. Ha ocurrido un error. Intente nuevamente mas tarde.")
     }
     
 })
+
+router.post('/productos', async (req, res) => {
+    const {title,price,thumbnail} = req.body
+    try{
+        await contenedor.save({title,price,thumbnail});
+        if (ENGINE === 'hbs'){
+            // * HANDLEBARS
+            res.render("main", {layout: "index"});
+        }else if (ENGINE === 'pug'){
+            // * PUG
+            res.render("index");
+        }else{
+            // * EJS
+            res.render("ejs/index");
+        }
+    }catch(e) {
+        return res.status(404).send({error:true, msg:"Lo sentimos. Ha ocurrido un error. Intente nuevamente mas tarde."})
+    }
+    
+});
+
+// ! el resto de los get, pertenecen a los desafios anteriores
 
 router.get('/productoRandom', async (req, res) => {
     try {
@@ -44,17 +82,6 @@ router.get('/productos/:id', async (req, res) => {
         return res.status(404).send({error:true, msg:"Producto no encontrado"})
     }
 })
-
-router.post('/productos', async (req, res) => {
-    const {title,price,thumbnail} = req.body
-    try{
-        await contenedor.save({title,price,thumbnail});
-        res.render("main", {layout: "index"});
-    }catch(e) {
-        return res.status(404).send({error:true, msg:"Lo sentimos. Ha ocurrido un error. Intente nuevamente mas tarde."})
-    }
-    
-});
 
 router.put('/productos/:id', async (req, res) => {
     const {id} = req.query;

@@ -60,7 +60,7 @@
 
     <!-- Begin page content -->
     <main role="main" class="container">
-    <h1 class="mt-5">Automoviles - HBS</h1>
+    <h1 class="mt-5">Automoviles - EJS</h1>
     <table class="table table-dark">
         <thead>
         <tr>
@@ -69,15 +69,13 @@
             <th scope="col">Imagen</th>
         </tr>
         </thead>
-        <tbody>
-        {{#each products}}
+        <% products.forEach(prod => {  %>
             <tr>
-                <th scope="col">{{this.title}}</th>
-                <th scope="col">{{this.price}}</th>
-                <th scope="col"><img src={{this.thumbnail}} alt={{this.title}} height="100px"/></th>
+                <td scope="col"><%= prod.title %></th>
+                <td scope="col"><%= prod.price %></th>
+                <td scope="col"><img src="<%= prod.thumbnail %>" alt= "<%= prod.title %>" height="100px"/></td>
             </tr>
-        {{/each}}
-        </tbody>
+        <% }); %>
     </table>
     </main>
 
@@ -95,11 +93,6 @@
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"
     ></script>
-    <script>
-    window.jQuery || document.write( '<script
-    src="https://getbootstrap.com/docs/4.0/assets/js/vendor/jquery-slim.min.js"><\/script>'
-    );
-    </script>
     <script
     src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"
     ></script>

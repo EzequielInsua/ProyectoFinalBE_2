@@ -1,0 +1,38 @@
+head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    meta(name='description' content='')
+    meta(name='author' content='')
+    link(rel='icon' href='/docs/4.0/assets/img/favicons/favicon.ico')
+    title Crea productos
+    link(rel='canonical' href='https://getbootstrap.com/docs/4.0/examples/sign-in/')
+    // Bootstrap core CSS
+    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous')
+    // Custom styles for this template
+    link(href='https://getbootstrap.com/docs/4.0/examples/sign-in/signin.css' rel='stylesheet')
+body
+    header
+        // Fixed navbar
+        nav.navbar.navbar-expand-md.navbar-dark.fixed-top.bg-dark
+            a.navbar-brand(href='#') Concecionario
+            //- button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarCollapse' aria-controls='navbarCollapse' aria-expanded='false' aria-label='Toggle navigation')
+            //-     span.navbar-toggler-icon
+            //-     #navbarCollapse.collapse.navbar-collapse
+            ul.navbar-nav.mr-auto
+                li.nav-item
+                    a.nav-link(href='productos') Automoviles
+                li.nav-item.active
+                    a.nav-link(href='#') Cargar Producto
+    form.form-signin(method='POST' action='/api/productos')
+        img.mb-4(src='https://cdn.worldvectorlogo.com/logos/pug.svg' alt='' width='72' height='72')
+        h1(class='.h3 .mb-3 .font-weight-normal') Nuevo Producto - PUG
+        label.sr-only(for='title') Titulo
+        input#title.form-control(type='text' placeholder='Nombre' required='' autofocus='' name='title')
+        label.sr-only(for='price') Precio
+        input#price.form-control(type='number' placeholder='Precio' required='' autofocus='' name='price')
+        label.sr-only(for='thumbnail') Thumbnail
+        input#thumbnail.form-control(type='text' placeholder='thumbnail' required='' name='thumbnail')
+        button.btn.btn-lg.btn-primary.btn-block(type='submit') Crear Producto
+    script( src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous")
